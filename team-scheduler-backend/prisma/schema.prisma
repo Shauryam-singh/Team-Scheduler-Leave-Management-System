@@ -8,11 +8,12 @@ generator client {
 }
 
 model User {
-  id     String  @id @default(uuid())
-  name   String
-  email  String  @unique
-  role   String
-  leaves Leave[]
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  password String
+  role     String   @default("employee")
+  leaves   Leave[]
 }
 
 model Leave {
