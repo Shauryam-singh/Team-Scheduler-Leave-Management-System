@@ -12,21 +12,92 @@ export default function RegisterForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await register(form);
-      setMsg('Registration successful!');
+      await register(form);
+      setMsg('Registration successful! Please log in.');
+      setForm({ name: '', email: '', password: '' });
     } catch (err: any) {
       setMsg(err.response?.data?.error || 'Error occurred');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input name="name" placeholder="Name" onChange={handleChange} required />
-      <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-      <button type="submit">Register</button>
-      <p>{msg}</p>
-    </form>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-600 to-emerald-700 px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full space-y-6"
+        aria-label="Register Form"
+      >
+        <h2 className="text-3xl font-bold text-center text-gray-800">Create Your Account</h2>
+
+        {msg && (
+          <p
+            className={`text-center font-semibold ${
+              msg.toLowerCase().includes('error') ? 'text-red-600' : 'text-green-600'
+            }`}
+            role="alert"
+          >
+            {msg}
+          </p>
+        )}
+
+        <div>
+          <label htmlFor="name" className="block text-gray-700 font-semibold mb-1">
+            Full Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={form.name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            placeholder="John Doe"
+            autoComplete="name"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+            Email Address
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            placeholder="you@example.com"
+            autoComplete="email"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            placeholder="********"
+            autoComplete="new-password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-emerald-600 hover:bg-emerald-700 transition-colors text-white py-3 rounded-md font-semibold text-lg"
+        >
+          Register
+        </button>
+      </form>
+    </div>
   );
 }

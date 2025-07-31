@@ -2,12 +2,7 @@ import { useState } from 'react';
 import { createLeave } from '../api/leaveService';
 
 const LeaveForm = () => {
-  const [form, setForm] = useState({
-    reason: '',
-    startDate: '',
-    endDate: '',
-  });
-
+  const [form, setForm] = useState({ reason: '', startDate: '', endDate: '' });
   const [message, setMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,43 +22,55 @@ const LeaveForm = () => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Apply for Leave</h2>
-      {message && <p className="mb-2 text-green-600">{message}</p>}
+    <div className="max-w-md mx-auto p-6 bg-white rounded shadow mt-8">
+      <h2 className="text-2xl font-semibold mb-4">Apply for Leave</h2>
+      {message && <p className="mb-4 text-green-600 font-medium">{message}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-semibold">Reason</label>
+          <label htmlFor="reason" className="block font-semibold mb-1">
+            Reason
+          </label>
           <textarea
+            id="reason"
             name="reason"
             value={form.reason}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
         <div>
-          <label className="block font-semibold">Start Date</label>
+          <label htmlFor="startDate" className="block font-semibold mb-1">
+            Start Date
+          </label>
           <input
+            id="startDate"
             type="date"
             name="startDate"
             value={form.startDate}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
         <div>
-          <label className="block font-semibold">End Date</label>
+          <label htmlFor="endDate" className="block font-semibold mb-1">
+            End Date
+          </label>
           <input
+            id="endDate"
             type="date"
             name="endDate"
             value={form.endDate}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"
+        >
           Submit
         </button>
       </form>
