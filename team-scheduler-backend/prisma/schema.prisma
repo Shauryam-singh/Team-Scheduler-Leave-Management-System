@@ -21,7 +21,7 @@ model Leave {
   reason    String
   startDate DateTime
   endDate   DateTime
-  status    String
+  status    String   @default("pending")
   userId    String
   user      User     @relation(fields: [userId], references: [id])
 }

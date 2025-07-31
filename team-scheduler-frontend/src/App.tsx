@@ -6,21 +6,20 @@ import LeaveForm from './pages/LeaveForm';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
+import AdminDashboard from './pages/AdminDashboard';
 
 function Nav() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [user, setUser] = useState<any>(JSON.parse(localStorage.getItem('user') || 'null'));
 
-  // Listen for login/logout events
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem('token'));
+      setUser(JSON.parse(localStorage.getItem('user') || 'null'));
     };
 
-    // Listen to localStorage changes (in other tabs/windows)
     window.addEventListener('storage', handleStorageChange);
-
-    // Custom event to update login state on same tab
     window.addEventListener('loginStatusChanged', handleStorageChange);
 
     return () => {
@@ -29,7 +28,6 @@ function Nav() {
     };
   }, []);
 
-  // Don't show nav on LandingPage (path = '/')
   if (location.pathname === '/') return null;
 
   return (
@@ -39,6 +37,9 @@ function Nav() {
           <Link to="/leaves" className="text-blue-600 font-semibold">Leaves</Link>
           <Link to="/apply" className="text-blue-600 font-semibold">Apply Leave</Link>
           <Link to="/profile" className="text-blue-600 font-semibold">Profile</Link>
+          {user?.role === 'admin' && (
+            <Link to="/admin" className="text-blue-600 font-semibold">Admin</Link>
+          )}
         </>
       ) : (
         <>
@@ -61,6 +62,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<HomePage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );
