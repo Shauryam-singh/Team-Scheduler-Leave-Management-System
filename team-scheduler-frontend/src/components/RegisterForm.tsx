@@ -21,13 +21,13 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-600 to-emerald-700 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full space-y-6"
+        className="bg-white rounded-xl shadow-xl max-w-md w-full p-8 space-y-6"
         aria-label="Register Form"
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800">Create Your Account</h2>
+        <h2 className="text-3xl font-extrabold text-emerald-700 text-center">Create Your Account</h2>
 
         {msg && (
           <p
@@ -41,7 +41,7 @@ export default function RegisterForm() {
         )}
 
         <div>
-          <label htmlFor="name" className="block text-gray-700 font-semibold mb-1">
+          <label htmlFor="name" className="block text-emerald-700 font-semibold mb-1">
             Full Name
           </label>
           <input
@@ -51,14 +51,14 @@ export default function RegisterForm() {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-3 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
             placeholder="John Doe"
             autoComplete="name"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+          <label htmlFor="email" className="block text-emerald-700 font-semibold mb-1">
             Email Address
           </label>
           <input
@@ -68,14 +68,14 @@ export default function RegisterForm() {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-3 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
             placeholder="you@example.com"
             autoComplete="email"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
+          <label htmlFor="password" className="block text-emerald-700 font-semibold mb-1">
             Password
           </label>
           <input
@@ -85,7 +85,7 @@ export default function RegisterForm() {
             value={form.password}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-3 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
             placeholder="********"
             autoComplete="new-password"
           />
@@ -93,7 +93,7 @@ export default function RegisterForm() {
 
         <button
           type="submit"
-          className="w-full bg-emerald-600 hover:bg-emerald-700 transition-colors text-white py-3 rounded-md font-semibold text-lg"
+          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold text-lg transition"
         >
           Register
         </button>

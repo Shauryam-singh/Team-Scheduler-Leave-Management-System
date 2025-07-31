@@ -17,24 +17,22 @@ export default function LoginForm() {
       const res = await login(form);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-
       window.dispatchEvent(new Event('loginStatusChanged'));
-
-      navigate('/');
+      navigate('/profile');
     } catch (err: any) {
       setMsg(err.response?.data?.error || 'Login failed');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full space-y-6"
+        className="bg-white rounded-xl shadow-xl max-w-md w-full p-8 space-y-6"
         aria-label="Login Form"
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800">Login to Your Account</h2>
-        
+        <h2 className="text-3xl font-extrabold text-indigo-700 text-center">Login to Your Account</h2>
+
         {msg && (
           <p
             className={`text-center font-semibold ${
@@ -47,7 +45,7 @@ export default function LoginForm() {
         )}
 
         <div>
-          <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+          <label htmlFor="email" className="block text-indigo-700 font-semibold mb-1">
             Email Address
           </label>
           <input
@@ -57,14 +55,14 @@ export default function LoginForm() {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-indigo-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="you@example.com"
             autoComplete="email"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
+          <label htmlFor="password" className="block text-indigo-700 font-semibold mb-1">
             Password
           </label>
           <input
@@ -74,7 +72,7 @@ export default function LoginForm() {
             value={form.password}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-indigo-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="********"
             autoComplete="current-password"
           />
@@ -82,7 +80,7 @@ export default function LoginForm() {
 
         <button
           type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 transition-colors text-white py-3 rounded-md font-semibold text-lg"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold text-lg transition"
         >
           Log In
         </button>
