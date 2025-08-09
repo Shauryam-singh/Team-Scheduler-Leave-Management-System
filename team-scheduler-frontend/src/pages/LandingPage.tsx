@@ -27,7 +27,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex flex-col">
       {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center text-center px-6 py-20">
+      <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20">
         <h1 className="text-5xl font-extrabold leading-tight mb-6 drop-shadow-lg">
           Seamless Leave & Team Management
         </h1>
