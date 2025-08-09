@@ -62,7 +62,7 @@ PORT=5000
 ```
 
 4. Setup Prisma and database
-``bash
+```bash
 cd ../team-scheduler-backend
 npx prisma migrate dev --name init
 npx prisma generate
