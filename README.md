@@ -40,7 +40,7 @@ A full-stack leave management application with user roles, leave requests, and a
 1. Clone the repository
 ```bash
 git clone https://github.com/yourname/Team-Scheduler-Leave-Management-System.git
-cd teamscheduler
+cd Team-Scheduler-Leave-Management-System
 ```
 
 2. Configure environment variables
@@ -55,7 +55,7 @@ npm install
 ```
 
 3. Configure environment variables
-``bash
+```bash
 DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
 JWT_SECRET=your_jwt_secret_key
 PORT=5000
