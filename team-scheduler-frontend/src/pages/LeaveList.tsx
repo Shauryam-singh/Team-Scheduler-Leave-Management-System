@@ -28,13 +28,10 @@ export default function LeaveList() {
     fetchData();
   }, []);
 
-  // Filter and search leaves
   const filteredLeaves = useMemo(() => {
     let filtered = leaves;
 
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter((l) => l.status === statusFilter);
-    }
+    if (statusFilter !== 'all') filtered = filtered.filter((l) => l.status === statusFilter);
 
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
@@ -44,7 +41,6 @@ export default function LeaveList() {
     return filtered;
   }, [leaves, statusFilter, searchTerm]);
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredLeaves.length / PAGE_SIZE);
   const paginatedLeaves = filteredLeaves.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
@@ -53,7 +49,9 @@ export default function LeaveList() {
 
   if (loading)
     return (
-      <div className="p-6 text-center text-gray-600">Loading leave requests...</div>
+      <div className="p-6 text-center text-gray-600 animate-pulse">
+        Loading leave requests...
+      </div>
     );
 
   if (error)
@@ -62,14 +60,16 @@ export default function LeaveList() {
     );
 
   return (
-    <div className="p-6 max-w-5xl mx-auto mt-8 bg-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold mb-6 text-indigo-700 text-center">Leave Requests</h2>
+    <div className="p-4 md:p-6 max-w-6xl mx-auto mt-12">
+      <h2 className="text-4xl md:text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500 text-center">
+        Leave Requests
+      </h2>
 
       {/* Filters and Search */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div className="flex items-center gap-2">
           <label htmlFor="status" className="font-semibold text-gray-700">
-            Filter by Status:
+            Status:
           </label>
           <select
             id="status"
@@ -78,7 +78,7 @@ export default function LeaveList() {
               setStatusFilter(e.target.value as any);
               setPage(1);
             }}
-            className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/70 backdrop-blur-sm"
           >
             <option value="all">All</option>
             <option value="pending">Pending</option>
@@ -95,7 +95,7 @@ export default function LeaveList() {
             setSearchTerm(e.target.value);
             setPage(1);
           }}
-          className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/70 backdrop-blur-sm"
         />
       </div>
 
@@ -104,75 +104,65 @@ export default function LeaveList() {
           No leave requests found. Try changing filters or search.
         </p>
       ) : (
-        <>
-          <div className="overflow-x-auto">
-            <table className="w-full table-auto border-collapse border border-gray-200">
-              <thead>
-                <tr className="bg-indigo-100 text-indigo-700">
-                  <th className="border border-gray-300 px-6 py-3 text-left">Reason</th>
-                  <th className="border border-gray-300 px-6 py-3 text-left">Start Date</th>
-                  <th className="border border-gray-300 px-6 py-3 text-left">End Date</th>
-                  <th className="border border-gray-300 px-6 py-3 text-left">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedLeaves.map((leave) => (
-                  <tr
-                    key={leave.id}
-                    className="hover:bg-indigo-50 transition cursor-default"
-                  >
-                    <td className="border border-gray-300 px-6 py-4">{leave.reason}</td>
-                    <td className="border border-gray-300 px-6 py-4">
-                      {new Date(leave.startDate).toLocaleDateString()}
-                    </td>
-                    <td className="border border-gray-300 px-6 py-4">
-                      {new Date(leave.endDate).toLocaleDateString()}
-                    </td>
-                    <td
-                      className={`border border-gray-300 px-6 py-4 font-semibold capitalize ${
-                        leave.status === 'approved'
-                          ? 'text-green-600'
-                          : leave.status === 'rejected'
-                          ? 'text-red-600'
-                          : 'text-yellow-600'
-                      }`}
-                    >
-                      {leave.status}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination */}
-          <div className="flex justify-between items-center mt-6">
-            <button
-              onClick={goPrev}
-              disabled={page === 1}
-              className={`px-4 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition ${
-                page === 1 ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+        <div className="grid gap-6">
+          {paginatedLeaves.map((leave) => (
+            <div
+              key={leave.id}
+              className="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-lg p-6 transition hover:shadow-xl hover:scale-[1.02]"
             >
-              Previous
-            </button>
-
-            <div className="text-gray-700 font-semibold">
-              Page {page} of {totalPages || 1}
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-xl font-semibold text-indigo-600">{leave.reason}</h3>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${
+                    leave.status === 'approved'
+                      ? 'bg-green-100 text-green-700'
+                      : leave.status === 'rejected'
+                      ? 'bg-red-100 text-red-700'
+                      : 'bg-yellow-100 text-yellow-700'
+                  }`}
+                >
+                  {leave.status}
+                </span>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 text-gray-700">
+                <div>
+                  <span className="font-semibold">Start:</span> {new Date(leave.startDate).toLocaleDateString()}
+                </div>
+                <div>
+                  <span className="font-semibold">End:</span> {new Date(leave.endDate).toLocaleDateString()}
+                </div>
+              </div>
             </div>
-
-            <button
-              onClick={goNext}
-              disabled={page === totalPages || totalPages === 0}
-              className={`px-4 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition ${
-                page === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              Next
-            </button>
-          </div>
-        </>
+          ))}
+        </div>
       )}
+
+      {/* Pagination */}
+      <div className="flex justify-between items-center mt-8">
+        <button
+          onClick={goPrev}
+          disabled={page === 1}
+          className={`px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition ${
+            page === 1 ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          Previous
+        </button>
+
+        <div className="text-gray-700 font-semibold">
+          Page {page} of {totalPages || 1}
+        </div>
+
+        <button
+          onClick={goNext}
+          disabled={page === totalPages || totalPages === 0}
+          className={`px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition ${
+            page === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }

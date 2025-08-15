@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { register } from '../api/auth';
+import { useState } from "react";
+import { register } from "../api/auth";
 
 export default function RegisterForm() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [msg, setMsg] = useState('');
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [msg, setMsg] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,26 +13,38 @@ export default function RegisterForm() {
     e.preventDefault();
     try {
       await register(form);
-      setMsg('Registration successful! Please log in.');
-      setForm({ name: '', email: '', password: '' });
+      setMsg("Registration successful! Please log in.");
+      setForm({ name: "", email: "", password: "" });
     } catch (err: any) {
-      setMsg(err.response?.data?.error || 'Error occurred');
+      setMsg(err.response?.data?.error || "Error occurred");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-emerald-50 via-white to-emerald-100 relative overflow-hidden">
+      {/* Animated gradient blobs */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob" />
+      <div className="absolute top-0 right-0 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000" />
+      <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-lime-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-4000" />
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-xl shadow-xl max-w-md w-full p-8 space-y-6"
+        className="relative z-10 w-full max-w-md p-8 rounded-2xl bg-white/70 backdrop-blur-xl shadow-xl border border-white/40 space-y-6"
         aria-label="Register Form"
       >
-        <h2 className="text-3xl font-extrabold text-emerald-700 text-center">Create Your Account</h2>
+        <h2 className="text-4xl font-extrabold text-center text-emerald-700 tracking-tight">
+          Create Your Account
+        </h2>
+        <p className="text-center text-gray-600">
+          Join us and start managing your account effortlessly.
+        </p>
 
         {msg && (
           <p
             className={`text-center font-semibold ${
-              msg.toLowerCase().includes('error') ? 'text-red-600' : 'text-green-600'
+              msg.toLowerCase().includes("error")
+                ? "text-red-600"
+                : "text-green-600"
             }`}
             role="alert"
           >
@@ -41,7 +53,10 @@ export default function RegisterForm() {
         )}
 
         <div>
-          <label htmlFor="name" className="block text-emerald-700 font-semibold mb-1">
+          <label
+            htmlFor="name"
+            className="block text-sm font-semibold text-emerald-700 mb-1"
+          >
             Full Name
           </label>
           <input
@@ -51,14 +66,17 @@ export default function RegisterForm() {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-3 rounded-xl border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
             placeholder="John Doe"
             autoComplete="name"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-emerald-700 font-semibold mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-semibold text-emerald-700 mb-1"
+          >
             Email Address
           </label>
           <input
@@ -68,14 +86,17 @@ export default function RegisterForm() {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-3 rounded-xl border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
             placeholder="you@example.com"
             autoComplete="email"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-emerald-700 font-semibold mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-semibold text-emerald-700 mb-1"
+          >
             Password
           </label>
           <input
@@ -85,7 +106,7 @@ export default function RegisterForm() {
             value={form.password}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-3 rounded-xl border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
             placeholder="********"
             autoComplete="new-password"
           />
@@ -93,10 +114,20 @@ export default function RegisterForm() {
 
         <button
           type="submit"
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold text-lg transition"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition"
         >
           Register
         </button>
+
+        <p className="text-center text-sm text-gray-500">
+          Already have an account?{" "}
+          <a
+            href="/login"
+            className="text-emerald-600 hover:text-emerald-700 font-semibold"
+          >
+            Log in
+          </a>
+        </p>
       </form>
     </div>
   );

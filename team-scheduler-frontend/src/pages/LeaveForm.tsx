@@ -18,7 +18,6 @@ export default function LeaveForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation
     if (!form.reason.trim() || !form.startDate || !form.endDate) {
       setError('All fields are required.');
       return;
@@ -48,16 +47,19 @@ export default function LeaveForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-xl">
-        <h1 className="text-3xl font-extrabold text-indigo-700 mb-6 text-center">Apply for Leave</h1>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-white/80 backdrop-blur-md shadow-2xl rounded-2xl p-8 md:p-10 border border-gray-200">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500 mb-6 text-center">
+          Apply for Leave
+        </h1>
 
         {message && <p className="mb-4 text-green-600 font-medium text-center">{message}</p>}
         {error && <p className="mb-4 text-red-600 font-medium text-center">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Reason */}
           <div>
-            <label htmlFor="reason" className="block font-semibold text-gray-700 mb-1">
+            <label htmlFor="reason" className="block font-semibold text-gray-700 mb-2">
               Reason
             </label>
             <textarea
@@ -67,14 +69,15 @@ export default function LeaveForm() {
               onChange={handleChange}
               rows={4}
               placeholder="E.g., Family trip, personal health, urgent travel..."
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white/70 backdrop-blur-sm"
               required
             />
           </div>
 
+          {/* Dates */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="startDate" className="block font-semibold text-gray-700 mb-1">
+              <label htmlFor="startDate" className="block font-semibold text-gray-700 mb-2">
                 Start Date
               </label>
               <input
@@ -83,14 +86,13 @@ export default function LeaveForm() {
                 name="startDate"
                 value={form.startDate}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white/70 backdrop-blur-sm"
                 min={today}
                 required
               />
             </div>
-
             <div>
-              <label htmlFor="endDate" className="block font-semibold text-gray-700 mb-1">
+              <label htmlFor="endDate" className="block font-semibold text-gray-700 mb-2">
                 End Date
               </label>
               <input
@@ -99,18 +101,21 @@ export default function LeaveForm() {
                 name="endDate"
                 value={form.endDate}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white/70 backdrop-blur-sm"
                 min={form.startDate || today}
                 required
               />
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className={`w-full text-white py-3 rounded-md font-bold transition ${
-              loading ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+            className={`w-full py-3 rounded-xl font-bold text-white text-lg transition ${
+              loading
+                ? 'bg-indigo-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-600 shadow-lg'
             }`}
           >
             {loading ? 'Submitting...' : 'Submit Request'}
